@@ -15,11 +15,7 @@ function App() {
         let counter = 0;
         let gameInterval = setInterval(() => {
             counter++;
-            setState({
-                ...state,
-                playerTwo: weapons[Math.floor(Math.random() * weapons.length)],
-                winner: '',
-            });
+            selectWeaponTwo();
             if (counter > 5) {
                 clearInterval(gameInterval);
                 setState({
@@ -28,6 +24,27 @@ function App() {
                 });
             }
         }, 100);
+    };
+
+    //select computer weapon
+    const selectWeaponTwo = params => {
+        const number = Math.floor(Math.random() * weapons.length);
+        setState({
+            ...state,
+            playerTwo: weapons[number],
+        });
+
+        console.log(number);
+        console.log(weapons[number]);
+    };
+
+    //select player weapon
+    const selectWeaponOne = weapon => {
+        setState({
+            ...state,
+            winner: '',
+            playerOne: weapon,
+        });
     };
 
     //select winner
@@ -45,15 +62,6 @@ function App() {
         } else {
             return 'You Lose!';
         }
-    };
-
-    //select
-    const selectWeaponOne = weapon => {
-        setState({
-            ...state,
-            winner: '',
-            playerOne: weapon,
-        });
     };
 
     return (
