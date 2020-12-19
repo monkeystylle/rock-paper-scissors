@@ -1,11 +1,11 @@
 import React from 'react';
-import scissors from '../assets/scissors.png';
-import paper from '../assets/paper.png';
-import rock from '../assets/rock.png';
+import scissors from '../assets/scissors2.png';
+import paper from '../assets/paper2.png';
+import rock from '../assets/rock2.png';
 
 import { Box, Image, Text } from '@chakra-ui/react';
 
-function Player({ weapon }) {
+function ComputerPlayer({ weapon }) {
     return (
         <Box mt={3}>
             <Image
@@ -24,4 +24,4 @@ function Player({ weapon }) {
     );
 }
 
-export default Player;
+export default ComputerPlayer;

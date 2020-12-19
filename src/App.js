@@ -1,4 +1,5 @@
 import Player from './components/Player';
+import ComputerPlayer from './components/ComputerPlayer';
 import { useState } from 'react';
 import { Box, Heading, Flex, Button, Text } from '@chakra-ui/react';
 
@@ -80,7 +81,7 @@ function App() {
                     <Text fontWeight="bold" textAlign="center">
                         Computer
                     </Text>
-                    <Player weapon={state.playerTwo} />
+                    <ComputerPlayer weapon={state.playerTwo} />
                 </Box>
             </Flex>
             <Text
