@@ -10,6 +10,26 @@ function App() {
         winner: '',
     });
 
+    //play the game
+    const startGame = () => {
+        let counter = 0;
+        let gameInterval = setInterval(() => {
+            counter++;
+            setState({
+                ...state,
+                playerTwo: weapons[Math.floor(Math.random() * weapons.length)],
+                winner: '',
+            });
+            if (counter > 5) {
+                clearInterval(gameInterval);
+                setState({
+                    ...state,
+                    winner: selectWinner(),
+                });
+            }
+        }, 100);
+    };
+
     //select winner
     const selectWinner = () => {
         const { playerOne, playerTwo } = state;
@@ -28,8 +48,10 @@ function App() {
     };
 
     //select
-    const selectWeapon = weapon => {
+    const selectWeaponOne = weapon => {
         setState({
+            ...state,
+            winner: '',
             playerOne: weapon,
         });
     };
@@ -44,22 +66,35 @@ function App() {
                     <Text fontWeight="bold" textAlign="center">
                         You
                     </Text>
-                    <Player />
+                    <Player weapon={state.playerOne} />
                 </Box>
                 <Box>
                     <Text fontWeight="bold" textAlign="center">
                         Computer
                     </Text>
-                    <Player />
+                    <Player weapon={state.playerTwo} />
                 </Box>
             </Flex>
+            <Text
+                color="#f05454"
+                fontWeight="bold"
+                fontSize="3xl"
+                mt={8}
+                textAlign="center"
+            >
+                {state.winner ? selectWinner() : null}
+            </Text>
             <Text fontSize="2xl" mt={8} textAlign="center">
                 Choose rock paper or scissor
             </Text>
             <Flex mt={4} justifyContent="center">
-                <Button>Rock</Button>
-                <Button ml={4}>Paper</Button>
-                <Button ml={4}>Scissor</Button>
+                <Button onClick={() => selectWeaponOne('rock')}>Rock</Button>
+                <Button ml={4} onClick={() => selectWeaponOne('paper')}>
+                    Paper
+                </Button>
+                <Button ml={4} onClick={() => selectWeaponOne('scissors')}>
+                    Scissor
+                </Button>
             </Flex>
             <Flex justifyContent="center" mt={20}>
                 <Button
@@ -67,6 +102,7 @@ function App() {
                     width="200px"
                     border="2px"
                     borderColor="gray.200"
+                    onClick={startGame}
                 >
                     PLAY
                 </Button>
