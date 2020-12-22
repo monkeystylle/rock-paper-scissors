@@ -4,60 +4,48 @@ import { useState } from 'react';
 import { Box, Heading, Flex, Button, Text } from '@chakra-ui/react';
 
 function App() {
-    const weapons = ['rock', 'paper', 'scissors'];
-    const [state, setState] = useState({
-        playerOne: weapons[0],
-        playerTwo: weapons[0],
-        winner: '',
-    });
+    const choice = ['rock', 'paper', 'scissors'];
+    const [playerChoice, setPlayerChoice] = useState('rock');
+    const [computerChoice, setComputerChoice] = useState('rock');
+    const [winner, setWinner] = useState('');
 
     //play the game
     const startGame = () => {
+        setWinner('');
         let counter = 0;
         let gameInterval = setInterval(() => {
             counter++;
-            selectWeaponTwo();
+            selecComputerChoice();
             if (counter > 5) {
                 clearInterval(gameInterval);
-                setState({
-                    ...state,
-                    winner: selectWinner(),
-                });
+                setWinner(selectWinner());
             }
         }, 100);
     };
 
-    //select computer weapon
-    const selectWeaponTwo = params => {
-        const number = Math.floor(Math.random() * weapons.length);
-        setState({
-            ...state,
-            playerTwo: weapons[number],
-        });
+    //select computer choice
+    const selecComputerChoice = params => {
+        const number = Math.floor(Math.random() * choice.length);
+        setComputerChoice(choice[number]);
 
         console.log(number);
-        console.log(weapons[number]);
+        console.log(choice[number]);
     };
 
-    //select player weapon
-    const selectWeaponOne = weapon => {
-        setState({
-            ...state,
-            winner: '',
-            playerOne: weapon,
-        });
+    //select player choice
+    const selectPlayerChoice = weapon => {
+        setPlayerChoice(weapon);
+        setWinner('');
     };
 
     //select winner
     const selectWinner = () => {
-        const { playerOne, playerTwo } = state;
-
-        if (playerOne === playerTwo) {
+        if (playerChoice === computerChoice) {
             return 'Its a Tie';
         } else if (
-            (playerOne === 'rock' && playerTwo === 'scissors') ||
-            (playerOne === 'scissors' && playerTwo === 'paper') ||
-            (playerOne === 'paper' && playerTwo === 'rock')
+            (playerChoice === 'rock' && computerChoice === 'scissors') ||
+            (playerChoice === 'scissors' && computerChoice === 'paper') ||
+            (playerChoice === 'paper' && computerChoice === 'rock')
         ) {
             return 'You Win!';
         } else {
@@ -75,13 +63,13 @@ function App() {
                     <Text fontWeight="bold" textAlign="center">
                         You
                     </Text>
-                    <Player weapon={state.playerOne} />
+                    <Player weapon={playerChoice} />
                 </Box>
                 <Box>
                     <Text fontWeight="bold" textAlign="center">
                         Computer
                     </Text>
-                    <ComputerPlayer weapon={state.playerTwo} />
+                    <ComputerPlayer weapon={computerChoice} />
                 </Box>
             </Flex>
             <Text
@@ -91,17 +79,17 @@ function App() {
                 mt={8}
                 textAlign="center"
             >
-                {state.winner ? selectWinner() : null}
+                {winner ? selectWinner() : null}
             </Text>
             <Text fontSize="2xl" mt={8} textAlign="center">
                 Choose rock paper or scissor
             </Text>
             <Flex mt={4} justifyContent="center">
-                <Button onClick={() => selectWeaponOne('rock')}>Rock</Button>
-                <Button ml={4} onClick={() => selectWeaponOne('paper')}>
+                <Button onClick={() => selectPlayerChoice('rock')}>Rock</Button>
+                <Button ml={4} onClick={() => selectPlayerChoice('paper')}>
                     Paper
                 </Button>
-                <Button ml={4} onClick={() => selectWeaponOne('scissors')}>
+                <Button ml={4} onClick={() => selectPlayerChoice('scissors')}>
                     Scissor
                 </Button>
             </Flex>

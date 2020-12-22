@@ -19,7 +19,6 @@ function ComputerPlayer({ weapon }) {
                 }
                 alt="Rock Paper Scissors"
             />
-            <Text>{weapon}</Text>
         </Box>
     );
 }
